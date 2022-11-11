@@ -17,7 +17,7 @@ function App() {
     "rate": 3.9,
     "count": 120
     }
-    }
+    };
 
     const product2 ={
       "id": 2,
