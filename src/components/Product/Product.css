@@ -1,0 +1,15 @@
+.product-image{
+    width: 200px;
+}
+
+.product-card{
+    display: flex;
+    background-color: aqua;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.product-info h3{
+    width: 200px;
+}
