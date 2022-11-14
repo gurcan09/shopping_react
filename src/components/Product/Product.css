@@ -4,7 +4,7 @@
 
 .product-card{
     display: flex;
-    background-color: aqua;
+    background-color: #F5F5DC;
     align-items: center;
     justify-content: space-between;
     margin: 30px;

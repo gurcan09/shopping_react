@@ -1,7 +1,12 @@
 
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css';
+import Cart from './components/Cart/Cart';
 import Homepage from './components/Homepage/Homepage';
+import Navbar from './components/Navbar/Navbar';
 import Product from './components/Product/Product';
+import ProductDetail from './components/ProductDetail/ProductDetail';
+
 
 function App() {
 
@@ -36,10 +41,14 @@ function App() {
 
   return (
     <div className="App">
-      <Homepage/>
-    
-
-     
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path='/detail' element={<ProductDetail />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route exact path='/' element={<Homepage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

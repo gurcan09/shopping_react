@@ -1,13 +1,22 @@
 import axios from 'axios'
 import React from 'react'
-import './Homepage.css';
-import Product from '../Product/Product';
+import './Homepage.css'
+import Product from '../Product/Product'
 
 
 function Homepage() {
 
     //create state for product info
     const [products, setProducts] = React.useState([]);
+
+    //get data when the component loads
+    React.useEffect(
+      ()=>{
+          console.log("component loaded")
+          //fetch the products
+          fetchProducts();
+      }, []
+    )
      /* {
         "id": 1,
         "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
@@ -39,9 +48,10 @@ function Homepage() {
     const fetchProducts = ()=>{
       //get data from api
       //store in products
-      axios.get("https://fakestoreapi.com/products")
+      axios.get('https://fakestoreapi.com/products')
       .then (response => {
       //console.log(response.data)
+      console.log(response.data);
       //assign this data to products
       setProducts(response.data);
       });
@@ -49,7 +59,8 @@ function Homepage() {
     }
   return (
     <div>
-        <button onClick = {fetchProducts}>Fetch Products</button>
+        { /*<button onClick = {fetchProducts}>Fetch Products</button>
+          */}
         <div className="prod-container">
         {products.map(item =>{
         return <Product key={item.id}
