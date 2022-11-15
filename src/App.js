@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import './App.css';
 import Cart from './components/Cart/Cart';
 import Homepage from './components/Homepage/Homepage';
@@ -10,7 +10,27 @@ import ProductDetail from './components/ProductDetail/ProductDetail';
 
 function App() {
 
-  /*
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path='/products/:id' element={<ProductDetail />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route exact path='/products' element={<Homepage />} />
+          <Route path="*" element={<Navigate to="/products" replace />} /> 
+          
+        </Routes>
+
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+
+
+ /*
   const product1 = {
     "id": 1,
     "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
@@ -38,19 +58,3 @@ function App() {
       };
 
       */
-
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path='/detail' element={<ProductDetail />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route exact path='/' element={<Homepage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
-}
-
-export default App;
