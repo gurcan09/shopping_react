@@ -1,0 +1,10 @@
+.product-cont img{
+    width: 200px;
+}
+
+.product-cont{
+    display: flex;
+    flex-direction: column;
+    
+    
+}

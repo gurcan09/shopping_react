@@ -6,19 +6,82 @@ import Homepage from './components/Homepage/Homepage';
 import Navbar from './components/Navbar/Navbar';
 import Product from './components/Product/Product';
 import ProductDetail from './components/ProductDetail/ProductDetail';
+import React from 'react'
 
 
 function App() {
+
+  //create state to hold all the products ordered
+  const [cartProducts, setCartProducts] = React.useState([]);
+
+  //create a function used by ProductDetail component
+  //to add product to cart
+  function addProductCard(productToAdd){
+    console.log(productToAdd);
+  //if productToAdd is NOT already in the cart,
+  //add it with a quantity of 1,
+  //otherwise increment quantity of item already in cart
+
+  //look for productToAdd in cartProducts
+  const match = cartProducts.find(prod => prod.id === productToAdd.id);
+  console.log('match is' + match);
+  //if not match is undefined which is "falsy"
+  if (!match){
+    console.log("first buy");
+    let newCart = [...cartProducts, {...productToAdd, quantity: 1}]
+    console.log(newCart);
+    //make this the new state
+    setCartProducts(newCart);
+  }else{
+    console.log("increase qty")
+    updateCartQuantity(match, true);
+  }
+
+    //replace the state
+    //setCardProducts([...cartProducts, productToAdd]);
+  }
+
+  function updateCartQuantity(productToChange, increase){
+    //if increase is true, add 1 to quantity
+    //if false, subtract 1 from quantity
+
+    let newqty = productToChange.quantity + 1;
+    if (!increase){
+      newqty = productToChange.quantity - 1;
+    }
+    const newCart = cartProducts.map(
+      prod => productToChange.id === prod.id ?
+      {...productToChange, quantity: newqty} : prod
+      )
+      console.log('newCart', newCart);
+      //replace the state with this 
+      setCartProducts(newCart);
+  }
+
+  function removeFromCart(productToRemove){
+    console.log(productToRemove)
+    //use filter to create a new array without this product
+    const newCartProducts = cartProducts.filter(
+      item => item.id !== productToRemove.id
+    )
+    console.log(newCartProducts)
+        //make this the new cartProducts
+    setCartProducts(newCartProducts);
+  }
 
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/products/:id' element={<ProductDetail />} />
-          <Route path='/cart' element={<Cart />} />
+          <Route path='/products/:id' element={<ProductDetail
+           addProductToCart={addProductCard}/>} />
+          <Route path='/cart' element={<Cart 
+          cartProducts={cartProducts}
+          removeFromCart={removeFromCart}
+          updateCartQuantity={updateCartQuantity} />} />
           <Route exact path='/products' element={<Homepage />} />
-          <Route path="*" element={<Navigate to="/products" replace />} /> 
+          <Route path='*' element={<Navigate to="/products" replace />} /> 
           
         </Routes>
 
